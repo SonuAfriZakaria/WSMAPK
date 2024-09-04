@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">WSPC</string>
+    <style name="LargeTextStyle">
+        <item name="android:textSize">40sp</item>
+    </style>
+    <string-array name="gender_options">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
+</resources>
