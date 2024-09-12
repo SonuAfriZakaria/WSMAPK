@@ -1,0 +1,20 @@
+<resources>
+    <string-array name="daftar_mahasiswa">
+        <item>Akbar</item>
+        <item>Aziz</item>
+        <item>Ilham</item>
+        <item>Kholit</item>
+        <item>Jakfar</item>
+        <item>Solli</item>
+        <item>Tyo</item>
+        <item>Sagita</item>
+        <item>Mafir</item>
+        <item>Wafi</item>
+        <item>Wahyu</item>
+        <item>Dendi</item>
+        <item>Fino</item>
+        <item>Reo</item>
+        <item>Adel</item>
+        <item>Farhan</item>
+    </string-array>
+</resources>

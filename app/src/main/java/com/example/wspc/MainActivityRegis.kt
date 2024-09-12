@@ -71,7 +71,7 @@ class MainActivityRegis : AppCompatActivity() {
                 Toast.makeText(this, "Registrasi berhasil dengan Nama: $name\nEmail: $email", Toast.LENGTH_LONG).show()
 
             } else {
-                Toast.makeText(this, "Name and Email cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Nama dan Email harus terisi", Toast.LENGTH_SHORT).show()
             }
         }
     }

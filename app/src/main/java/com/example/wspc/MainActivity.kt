@@ -1,5 +1,6 @@
 package com.example.wspc
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,9 +11,10 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var button1: Button
+    private lateinit var button2: Button
 
 
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,11 +22,16 @@ class MainActivity : AppCompatActivity() {
 
 
             button1 = findViewById(R.id.button1)
+            button2 = findViewById(R.id.button2)
 
             button1.setOnClickListener {
                 val intentDestination = Intent( this@MainActivity, MainActivityRegis::class.java)
                 startActivity(intentDestination)
             }
+        button2.setOnClickListener {
+            val intentDestination = Intent( this@MainActivity, listMahasiswa::class.java)
+            startActivity(intentDestination)
+        }
 
         }
     }
