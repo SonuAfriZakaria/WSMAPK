@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.appcompat.app.AlertDialog
+import android.content.Intent
+
 
 
 class MainActivityLogin : AppCompatActivity() {
@@ -30,7 +32,6 @@ class MainActivityLogin : AppCompatActivity() {
         editTextPassword3 = findViewById(R.id.editTextTextPassword3)
         buttonShowHide = findViewById(R.id.buttonShowHide)
         buttonLogin = findViewById(R.id.buttonLogin)
-
         val email = intent.getStringExtra("EMAIL_EXTRA")
         registeredPassword = intent.getStringExtra("PASSWORD_EXTRA") // Get the registered password
         email?.let {
@@ -45,7 +46,7 @@ class MainActivityLogin : AppCompatActivity() {
             validateLogin()
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.username)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -71,12 +72,29 @@ class MainActivityLogin : AppCompatActivity() {
 
     private fun validateLogin() {
         val enteredPassword = editTextPassword3.text.toString()
+        val fullname = intent.getStringExtra("FULLNAME_EXTRA")
+        val name = intent.getStringExtra("USERNAME_EXTRA")
+        val tanggal = intent.getStringExtra("TANGGAL_LAHIR_EXTRA")
+        val gender = intent.getStringExtra("GENDER_EXTRA")
+        val nomor = intent.getStringExtra("NOMOR_TELEPON_EXTRA")
+        val alamat = intent.getStringExtra("ALAMAT_EXTRA")
+        val email = intent.getStringExtra("EMAIL_EXTRA")
 
         if (enteredPassword == registeredPassword) {
             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-            // Proceed to the next activity or functionality
+            val intentDestination = Intent(this, MainActivitydashboard::class.java).apply{
+                putExtra("FULLNAME_EXTRA", fullname)
+                putExtra("USERNAME_EXTRA", name)
+                putExtra("TANGGAL_LAHIR_EXTRA", tanggal)
+                putExtra("EMAIL_EXTRA", email)
+                putExtra("GENDER_EXTRA", gender)
+                putExtra("NOMOR_TELEPON_EXTRA", nomor)
+                putExtra("ALAMAT_EXTRA", alamat)
+
+            }
+            startActivity(intentDestination)
         } else {
-            showAlertDialog("Peringatan", "Password salah") // Show alert dialog
+            showAlertDialog("Peringatan", "Password salah")
         }
     }
 
@@ -84,9 +102,14 @@ class MainActivityLogin : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
             .setMessage(message)
-            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+                val intent = Intent(this, listMahasiswa::class.java)
+                startActivity(intent)
+            }
         val dialog = builder.create()
         dialog.show()
     }
+
 
 }
