@@ -22,13 +22,14 @@ class MainActivitydashboard : AppCompatActivity() {
         val alamat = intent.getStringExtra("ALAMAT_EXTRA")
         val password = intent.getStringExtra("PASSWORD_EXTRA")
 
-        findViewById<TextView>(R.id.textView2).text = username
-        findViewById<TextView>(R.id.textView3).text = fullname
-        findViewById<TextView>(R.id.lahir).text = tanggalLahir
-        findViewById<TextView>(R.id.email).text = email
-        findViewById<TextView>(R.id.gender).text = gender
-        findViewById<TextView>(R.id.telp).text = nomorTelepon
-        findViewById<TextView>(R.id.alamat).text = alamat
+        findViewById<TextView>(R.id.textView2).text = "USERNAME: $username"
+        findViewById<TextView>(R.id.textView3).text = "NAMA: $fullname"
+        findViewById<TextView>(R.id.lahir).text = "TANGGAL LAHIR: $tanggalLahir"
+        findViewById<TextView>(R.id.email).text = "EMAIL: $email"
+        findViewById<TextView>(R.id.gender).text = "GENDER: $gender"
+        findViewById<TextView>(R.id.telp).text = "NOMOR TELEPON: $nomorTelepon"
+        findViewById<TextView>(R.id.alamat).text = "ALAMAT: $alamat"
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.username)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
