@@ -87,7 +87,7 @@ class MainActivityRegis : AppCompatActivity() {
         val fullname = etFullname.text.toString()
         val nomor = etTelp.text.toString()
         val alamat = etAlamat.text.toString()
-        val gender = spinnerGender.toString()
+        val gender = spinnerGender.selectedItem.toString()
 
         if (password != confirmPassword) {
             Toast.makeText(this, "Password dan Konfirmasi password harus sama", Toast.LENGTH_SHORT).show()
