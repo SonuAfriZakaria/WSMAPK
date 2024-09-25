@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 class MainActivity : AppCompatActivity() {
     private lateinit var button1: Button
     private lateinit var button2: Button
-
+    private lateinit var button3: Button
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
             button1 = findViewById(R.id.button1)
             button2 = findViewById(R.id.button2)
+            button3 = findViewById(R.id.button3)
 
             button1.setOnClickListener {
                 val intentDestination = Intent( this@MainActivity, MainActivityRegis::class.java)
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
             }
         button2.setOnClickListener {
             val intentDestination = Intent( this@MainActivity, listMahasiswa::class.java)
+            startActivity(intentDestination)
+        }
+        button3.setOnClickListener {
+            val intentDestination = Intent( this@MainActivity, recycle::class.java)
             startActivity(intentDestination)
         }
 
