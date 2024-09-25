@@ -5,6 +5,7 @@
     android:id="@+id/username"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_dynamic_neutral30"
     tools:context=".MainActivityLogin">
 
     <ImageButton
@@ -27,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@mipmap/ic_launcher" />
 
     <EditText
         android:id="@+id/editTextTextPassword3"
@@ -60,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        android:text="Button"
+        android:text="Login"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword3"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPassword3"
