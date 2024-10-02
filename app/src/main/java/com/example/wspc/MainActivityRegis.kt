@@ -22,6 +22,9 @@ class MainActivityRegis : AppCompatActivity() {
     private lateinit var etFullname : EditText
     private lateinit var etTelp : EditText
     private lateinit var etAlamat : EditText
+    private lateinit var buttonShowHide: ImageButton
+    private lateinit var buttonShowHide1: ImageButton
+    private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,9 @@ class MainActivityRegis : AppCompatActivity() {
         etFullname = findViewById(R.id.editTextText4)
         etTelp = findViewById(R.id.editTextNumberSigned)
         etAlamat = findViewById(R.id.editTextText6)
+        buttonShowHide = findViewById(R.id.buttonShowHide)
+        buttonShowHide1 = findViewById(R.id.buttonShowHide1)
+
 
 
         val genderOptions = resources.getStringArray(R.array.gender_options)
@@ -57,6 +63,32 @@ class MainActivityRegis : AppCompatActivity() {
         btnSubmit.setOnClickListener {
             validateAndSubmit()
         }
+        buttonShowHide.setOnClickListener {
+            togglePasswordVisibility()
+        }
+        buttonShowHide1.setOnClickListener {
+            togglePasswordVisibility1()
+        }
+    }
+
+    private fun togglePasswordVisibility() {
+        isPasswordVisible = !isPasswordVisible
+        etPassword.transformationMethod = if (isPasswordVisible) {
+            null // Show password
+        } else {
+            android.text.method.PasswordTransformationMethod.getInstance()
+        }
+        etPassword.setSelection(etPassword.text.length)
+    }
+
+    private fun togglePasswordVisibility1() {
+        isPasswordVisible = !isPasswordVisible
+        etConfirmPassword.transformationMethod = if (isPasswordVisible) {
+            null // Show password
+        } else {
+            android.text.method.PasswordTransformationMethod.getInstance()
+        }
+        etConfirmPassword.setSelection(etConfirmPassword.text.length)
     }
 
     private fun showDatePicker() {

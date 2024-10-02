@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,9 +16,9 @@ import com.example.wspc.recycle
 
 class FragmenACT : AppCompatActivity()
     {
-    private lateinit var button1: Button
-    private lateinit var button2: Button
-    private lateinit var button3: Button
+    private lateinit var imageButton: ImageButton
+    private lateinit var imageButton2: ImageButton
+    private lateinit var imageButton3: ImageButton
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,25 +27,25 @@ class FragmenACT : AppCompatActivity()
         setContentView(R.layout.activity_fragmen)
 
 
-        button1 = findViewById(R.id.button1)
-        button2 = findViewById(R.id.button2)
-        button3 = findViewById(R.id.button3)
+        imageButton = findViewById(R.id.imageButton)
+        imageButton2 = findViewById(R.id.imageButton2)
+        imageButton3 = findViewById(R.id.imageButton3)
 
-        button1.setOnClickListener {
+        imageButton.setOnClickListener {
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_container, Frame1())
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
-        button2.setOnClickListener {
+        imageButton3.setOnClickListener {
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_container, Fragmen2())
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
-        button3.setOnClickListener {
+        imageButton2.setOnClickListener {
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_container, Fragmen3())

@@ -102,14 +102,19 @@ class MainActivityLogin : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
             .setMessage(message)
-            .setPositiveButton("OK") { dialog, _ ->
+            .setPositiveButton("Lanjut") { dialog, _ ->
                 dialog.dismiss()
                 val intent = Intent(this, listMahasiswa::class.java)
                 startActivity(intent)
             }
+            .setNegativeButton("Tetap Dihalaman") { dialog, _ ->
+                dialog.dismiss()
+                // Menutup dialog dan tetap di halaman saat ini
+            }
         val dialog = builder.create()
         dialog.show()
     }
+
 
 
 }
