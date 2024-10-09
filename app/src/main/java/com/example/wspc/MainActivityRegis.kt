@@ -1,6 +1,4 @@
 package com.example.wspc
-
-import DatabaseHandler
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import Database.entitas.DatabaseHandler
 
 class MainActivityRegis : AppCompatActivity() {
     private lateinit var etTanggal: EditText
@@ -21,9 +20,9 @@ class MainActivityRegis : AppCompatActivity() {
     private lateinit var etConfirmPassword: EditText
     private lateinit var btnSubmit: Button
     private lateinit var spinnerGender: Spinner
-    private lateinit var etFullname : EditText
-    private lateinit var etTelp : EditText
-    private lateinit var etAlamat : EditText
+    private lateinit var etFullname: EditText
+    private lateinit var etTelp: EditText
+    private lateinit var etAlamat: EditText
     private lateinit var buttonShowHide: ImageButton
     private lateinit var buttonShowHide1: ImageButton
     private var isPasswordVisible = false
@@ -118,7 +117,8 @@ class MainActivityRegis : AppCompatActivity() {
             { _, year, month, dayOfMonth ->
                 val selectedDate = Calendar.getInstance()
                 selectedDate.set(year, month, dayOfMonth)
-                val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale("id")) // Use Indonesian locale
+                val dateFormat =
+                    SimpleDateFormat("d MMMM yyyy", Locale("id")) // Use Indonesian locale
                 val formattedDate = dateFormat.format(selectedDate.time)
 
                 etTanggal.setText(formattedDate)
@@ -139,20 +139,23 @@ class MainActivityRegis : AppCompatActivity() {
         val gender = spinnerGender.selectedItem.toString()
 
         if (password != confirmPassword) {
-            Toast.makeText(this, "Password dan Konfirmasi password harus sama", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Password dan Konfirmasi password harus sama", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 
-        val intentDestination = Intent(this, MainActivityLogin::class.java).apply {
-            putExtra("FULLNAME_EXTRA", fullname)
-            putExtra("USERNAME_EXTRA", name)
-            putExtra("TANGGAL_LAHIR_EXTRA", tanggal)
-            putExtra("EMAIL_EXTRA", email)
-            putExtra("GENDER_EXTRA", gender)
-            putExtra("NOMOR_TELEPON_EXTRA", nomor)
-            putExtra("ALAMAT_EXTRA", alamat)
-            putExtra("PASSWORD_EXTRA", password)
+        // Insert data into the database
+        val result = dbHandler.Insert(name, email, password, fullname, tanggal, gender, nomor, alamat)
+        if (result == -1L) {
+            Toast.makeText(this, "Gagal mendaftar, coba lagi!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Pendaftaran berhasil!", Toast.LENGTH_SHORT).show()
+            val intentDestination = Intent(this, MainActivityLogin::class.java).apply {
+                putExtra("EMAIL_EXTRA", email)
+                putExtra("PASSWORD_EXTRA", password)
+            }
+            startActivity(intentDestination)
+            finish() // Close MainActivityRegis
         }
-        startActivity(intentDestination)
     }
 }
