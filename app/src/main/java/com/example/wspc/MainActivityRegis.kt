@@ -1,7 +1,9 @@
 package com.example.wspc
 
+import DatabaseHandler
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
@@ -25,6 +27,9 @@ class MainActivityRegis : AppCompatActivity() {
     private lateinit var buttonShowHide: ImageButton
     private lateinit var buttonShowHide1: ImageButton
     private var isPasswordVisible = false
+    private lateinit var dbHandler: DatabaseHandler
+    private lateinit var sharedPreferences: SharedPreferences
+    private val sharedPrefFile = "user_prefs"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +49,20 @@ class MainActivityRegis : AppCompatActivity() {
         etAlamat = findViewById(R.id.editTextText6)
         buttonShowHide = findViewById(R.id.buttonShowHide)
         buttonShowHide1 = findViewById(R.id.buttonShowHide1)
+        dbHandler = DatabaseHandler(this)
+        sharedPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE)
 
-
+        val savedEmail = sharedPreferences.getString("EMAIL_EXTRA", null)
+        if (savedEmail != null) {
+            // Jika sudah terdaftar, langsung buka halaman login
+            val intentDestination = Intent(this, MainActivityLogin::class.java).apply {
+                putExtra("EMAIL_EXTRA", savedEmail)
+                putExtra("PASSWORD_EXTRA", sharedPreferences.getString("PASSWORD_EXTRA", null))
+            }
+            startActivity(intentDestination)
+            finish() // Tutup MainActivityRegis
+            return
+        }
 
         val genderOptions = resources.getStringArray(R.array.gender_options)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderOptions)
@@ -125,8 +142,6 @@ class MainActivityRegis : AppCompatActivity() {
             Toast.makeText(this, "Password dan Konfirmasi password harus sama", Toast.LENGTH_SHORT).show()
             return
         }
-
-        Toast.makeText(this, "Registrasi berhasil", Toast.LENGTH_LONG).show()
 
         val intentDestination = Intent(this, MainActivityLogin::class.java).apply {
             putExtra("FULLNAME_EXTRA", fullname)

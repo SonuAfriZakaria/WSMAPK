@@ -13,42 +13,15 @@
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.85"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/Nvabar" /> <!-- Set bottom constraint -->
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="138dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/Nvabar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_container"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/baseline_format_list_bulleted_24" />
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="138dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_container"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/baseline_person_24" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="138dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton3"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_container"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/baseline_browser_not_supported_24" />
+        app:menu="@menu/buttonnav"/> <!-- Set constraint to bottom of parent -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

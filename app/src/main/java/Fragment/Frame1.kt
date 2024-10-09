@@ -18,13 +18,10 @@ class Frame1 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_frame1, container, false)
 
-        // Access ListView from the fragment's layout
         val listView: ListView = view.findViewById(R.id.listView)
 
-        // Set up the adapter using resources
         val adapter: ArrayAdapter<String> = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_list_item_1,

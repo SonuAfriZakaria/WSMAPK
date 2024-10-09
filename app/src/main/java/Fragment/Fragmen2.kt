@@ -17,10 +17,8 @@ class Fragmen2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_fragmen2, container, false)
 
-        // Access RecyclerView from the fragment's layout
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
 
         // Create a list of Mahasiswa objects

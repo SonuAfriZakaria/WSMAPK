@@ -1,5 +1,7 @@
 package com.example.wspc
 
+import Fragment.FragmenACT
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -12,8 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.appcompat.app.AlertDialog
 import android.content.Intent
 
-
-
 class MainActivityLogin : AppCompatActivity() {
 
     private lateinit var editTextTextEmailAddress2: EditText
@@ -22,18 +22,40 @@ class MainActivityLogin : AppCompatActivity() {
     private lateinit var buttonLogin: Button
     private var isPasswordVisible = false
     private var registeredPassword: String? = null
+    private lateinit var sharedPreferences: SharedPreferences
+    private val sharedPrefFile = "user_prefs"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main_login)
 
+        // Inisialisasi SharedPreferences
+        sharedPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE)
+
         editTextTextEmailAddress2 = findViewById(R.id.editTextTextEmailAddress2)
         editTextPassword3 = findViewById(R.id.editTextTextPassword3)
         buttonShowHide = findViewById(R.id.buttonShowHide)
         buttonLogin = findViewById(R.id.buttonLogin)
+
+        // Cek SharedPreferences untuk login otomatis
+        val savedEmail = sharedPreferences.getString("EMAIL_EXTRA", null)
+        val savedPassword = sharedPreferences.getString("PASSWORD_EXTRA", null)
+
+        if (savedEmail != null && savedPassword != null) {
+            // Jika sudah terdaftar, langsung buka FragmenACT
+            val intentDestination = Intent(this, FragmenACT::class.java).apply {
+                putExtra("EMAIL_EXTRA", savedEmail)
+                putExtra("PASSWORD_EXTRA", savedPassword)
+            }
+            startActivity(intentDestination)
+            finish() // Tutup MainActivityLogin
+            return
+        }
+
+        // Jika belum terdaftar, lanjutkan dengan logika normal
         val email = intent.getStringExtra("EMAIL_EXTRA")
-        registeredPassword = intent.getStringExtra("PASSWORD_EXTRA") // Get the registered password
+        registeredPassword = intent.getStringExtra("PASSWORD_EXTRA")
         email?.let {
             editTextTextEmailAddress2.setText(it)
         }
@@ -81,8 +103,15 @@ class MainActivityLogin : AppCompatActivity() {
         val email = intent.getStringExtra("EMAIL_EXTRA")
 
         if (enteredPassword == registeredPassword) {
+            // Simpan data pengguna ke SharedPreferences
+            with(sharedPreferences.edit()) {
+                putString("EMAIL_EXTRA", email)
+                putString("PASSWORD_EXTRA", registeredPassword)
+                apply()
+            }
+
             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-            val intentDestination = Intent(this, MainActivitydashboard::class.java).apply{
+            val intentDestination = Intent(this, FragmenACT::class.java).apply {
                 putExtra("FULLNAME_EXTRA", fullname)
                 putExtra("USERNAME_EXTRA", name)
                 putExtra("TANGGAL_LAHIR_EXTRA", tanggal)
@@ -90,9 +119,9 @@ class MainActivityLogin : AppCompatActivity() {
                 putExtra("GENDER_EXTRA", gender)
                 putExtra("NOMOR_TELEPON_EXTRA", nomor)
                 putExtra("ALAMAT_EXTRA", alamat)
-
             }
             startActivity(intentDestination)
+            finish() // Tutup MainActivityLogin
         } else {
             showAlertDialog("Peringatan", "Password salah")
         }
@@ -109,12 +138,8 @@ class MainActivityLogin : AppCompatActivity() {
             }
             .setNegativeButton("Tetap Dihalaman") { dialog, _ ->
                 dialog.dismiss()
-                // Menutup dialog dan tetap di halaman saat ini
             }
         val dialog = builder.create()
         dialog.show()
     }
-
-
-
 }
